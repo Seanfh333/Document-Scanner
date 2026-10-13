@@ -39,7 +39,7 @@ def point_transform(image, pts):
     # compute the height of neew image (max distance between top and bottom of l and r)
     heightA = np.sqrt(((tr[0] - br[0]) ** 2) + ((tr[1] - br[1]) ** 2))
     heightB = np.sqrt(((tl[0] - bl[0]) ** 2) + ((tl[1] - bl[1]) ** 2))
-    maxHeight = max(int(heightA, heightB))
+    maxHeight = max(int(heightA), int(heightB))
     
     dst = np.array([
         [0, 0],

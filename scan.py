@@ -9,7 +9,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required = True, help = "path to the image file")
 args = vars(ap.parse_args())
 
-image = cv2.imread(args("image"))
+image = cv2.imread(args["image"])
 ratio = image.shape[0] / 500.0
 orig = image.copy()
 image = imutils.resize(image, height = 500)
@@ -35,3 +35,9 @@ for c in cnts:
 warped = point_transform(orig, screenCnt.reshape(4, 2) * ratio)
 
 warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
+T = threshold_local(warped, 11, offset = 10, method = "gaussian")
+warped = (warped > T).astype("uint8") * 255
+
+cv2.imshow("Original", imutils.resize(orig, height = 650))
+cv2.imshow("scannerd", imutils.resize(warped, height = 650))
+cv2.waitKey(0)
